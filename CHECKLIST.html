@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AKOIN — GitHub Upload Checklist</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a0a;
+  color: #F8F5F0;
+  font-family: 'Syne', sans-serif;
+  padding: 60px;
+  max-width: 900px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+h1 {
+  font-size: 48px;
+  letter-spacing: 3px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+h1 em { color: #E8510A; font-style: normal; }
+
+.subtitle {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: rgba(248,245,240,0.4);
+  text-transform: uppercase;
+  margin-bottom: 60px;
+}
+
+.section-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #E8510A;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 48px;
+}
+.section-title::before { content: ''; width: 28px; height: 1px; background: #E8510A; }
+
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 40px;
+}
+
+.check-item {
+  background: #1a1a1a;
+  padding: 20px 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  border-left: 3px solid transparent;
+  transition: border-color 0.2s;
+  cursor: pointer;
+}
+.check-item:hover { border-left-color: #E8510A; background: #222; }
+.check-item.done { border-left-color: #E8510A; }
+.check-item.done .check-box { background: #E8510A; border-color: #E8510A; }
+.check-item.done .check-box::after { content: '✓'; }
+
+.check-box {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(248,245,240,0.2);
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: white;
+  transition: all 0.2s;
+}
+
+.check-content h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: #F8F5F0;
+}
+
+.check-content p {
+  font-size: 13px;
+  color: rgba(248,245,240,0.45);
+  line-height: 1.5;
+}
+
+.check-content code {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  background: rgba(232,81,10,0.1);
+  color: #E8510A;
+  padding: 2px 8px;
+  border: 1px solid rgba(232,81,10,0.2);
+}
+
+.file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.file-item {
+  background: #1a1a1a;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: 'DM Mono', monospace;
+}
+
+.file-icon {
+  width: 36px;
+  height: 36px;
+  background: rgba(232,81,10,0.1);
+  border: 1px solid rgba(232,81,10,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.file-name {
+  font-size: 14px;
+  color: #E8510A;
+  flex: 1;
+}
+
+.file-desc {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: rgba(248,245,240,0.3);
+  text-transform: uppercase;
+}
+
+.file-required {
+  font-size: 10px;
+  letter-spacing: 1px;
+  background: rgba(232,81,10,0.15);
+  color: #E8510A;
+  padding: 3px 10px;
+  text-transform: uppercase;
+}
+
+.tip-box {
+  background: rgba(232,81,10,0.08);
+  border: 1px solid rgba(232,81,10,0.2);
+  border-left: 4px solid #E8510A;
+  padding: 20px 24px;
+  margin: 24px 0;
+}
+
+.tip-box p {
+  font-size: 14px;
+  color: rgba(248,245,240,0.7);
+  line-height: 1.6;
+}
+
+.tip-box strong { color: #E8510A; }
+
+.url-preview {
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 20px 24px;
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  margin: 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.url-dot { width: 8px; height: 8px; background: #E8510A; border-radius: 50%; }
+
+.url-text { color: #E8510A; }
+
+.steps-timeline {
+  position: relative;
+  padding-left: 40px;
+}
+
+.steps-timeline::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #E8510A, rgba(232,81,10,0.1));
+}
+
+.step {
+  position: relative;
+  margin-bottom: 2px;
+  background: #1a1a1a;
+  padding: 20px 24px;
+}
+
+.step::before {
+  content: attr(data-num);
+  position: absolute;
+  left: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  background: #E8510A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: white;
+  font-weight: 700;
+}
+
+.step h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.step p { font-size: 13px; color: rgba(248,245,240,0.45); line-height: 1.5; }
+.step code { font-family: 'DM Mono', monospace; font-size: 12px; background: rgba(232,81,10,0.1); color: #E8510A; padding: 1px 6px; }
+
+.divider {
+  height: 1px;
+  background: rgba(255,255,255,0.05);
+  margin: 40px 0;
+}
+
+.footer-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: rgba(248,245,240,0.2);
+  text-align: center;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+</style>
+</head>
+<body>
+
+<h1>AK<em>OIN</em> GitHub</h1>
+<div class="subtitle">Upload Checklist & Deployment Guide</div>
+
+<!-- FILES REQUIRED -->
+<div class="section-title">Files Required</div>
+<div class="file-list">
+  <div class="file-item">
+    <div class="file-icon">🏠</div>
+    <div class="file-name">index.html</div>
+    <div class="file-desc">Homepage (rename from homepage.html)</div>
+    <div class="file-required">Required</div>
+  </div>
+  <div class="file-item">
+    <div class="file-icon">🛡</div>
+    <div class="file-name">advisory.html</div>
+    <div class="file-desc">Advisory & Consulting Page</div>
+    <div class="file-required">Required</div>
+  </div>
+  <div class="file-item">
+    <div class="file-icon">🎓</div>
+    <div class="file-name">academy.html</div>
+    <div class="file-desc">Academy & Courses Page</div>
+    <div class="file-required">Required</div>
+  </div>
+  <div class="file-item">
+    <div class="file-icon">📄</div>
+    <div class="file-name">README.md</div>
+    <div class="file-desc">Project description shown on GitHub</div>
+    <div class="file-required">Recommended</div>
+  </div>
+</div>
+
+<div class="tip-box">
+  <p>⚠️ <strong>Important:</strong> Rename <code>homepage.html</code> to <code>index.html</code> before uploading. GitHub Pages needs a file called <code>index.html</code> to know which page to show first.</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- STEP BY STEP -->
+<div class="section-title">Step-by-Step Upload</div>
+<div class="steps-timeline">
+  <div class="step" data-num="1">
+    <h4>Go to github.com and sign up / log in</h4>
+    <p>Create a free account if you don't have one. No credit card needed.</p>
+  </div>
+  <div class="step" data-num="2">
+    <h4>Create a new repository</h4>
+    <p>Click the <code>+</code> icon top right → New repository → Name it <code>akoin-website</code> → Set to <strong>Public</strong> → Tick "Add README file" → Click Create repository</p>
+  </div>
+  <div class="step" data-num="3">
+    <h4>Upload all 4 files</h4>
+    <p>Click <code>Add file</code> → <code>Upload files</code> → Drag and drop: <code>index.html</code>, <code>advisory.html</code>, <code>academy.html</code>, <code>README.md</code> → Click Commit changes</p>
+  </div>
+  <div class="step" data-num="4">
+    <h4>Enable GitHub Pages</h4>
+    <p>Click <code>Settings</code> tab → Scroll left sidebar to <code>Pages</code> → Under Branch select <code>main</code> → Click <code>Save</code></p>
+  </div>
+  <div class="step" data-num="5">
+    <h4>Wait 1–2 minutes then refresh</h4>
+    <p>Go back to Settings → Pages. You'll see a green banner with your live URL.</p>
+  </div>
+  <div class="step" data-num="6">
+    <h4>Your site is live! Share the link.</h4>
+    <p>Copy the URL and paste it in your submission email to <code>akoininfo@gmail.com</code></p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- YOUR LIVE URL -->
+<div class="section-title">Your Live URL Will Look Like</div>
+<div class="url-preview">
+  <div class="url-dot"></div>
+  <div class="url-text">https://yourusername.github.io/akoin-website</div>
+</div>
+<div class="url-preview">
+  <div class="url-dot"></div>
+  <div class="url-text">https://yourusername.github.io/akoin-website/advisory.html</div>
+</div>
+<div class="url-preview">
+  <div class="url-dot"></div>
+  <div class="url-text">https://yourusername.github.io/akoin-website/academy.html</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PRE-UPLOAD CHECKLIST -->
+<div class="section-title">Pre-Upload Checklist</div>
+<div class="checklist" id="checklist">
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"></div>
+    <div class="check-content">
+      <h4>Renamed homepage.html → index.html</h4>
+      <p>GitHub Pages needs <code>index.html</code> as the entry point. Without this the homepage won't load.</p>
+    </div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"></div>
+    <div class="check-content">
+      <h4>All 3 HTML files are in the same folder</h4>
+      <p><code>index.html</code>, <code>advisory.html</code>, and <code>academy.html</code> must be together so the nav links work.</p>
+    </div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"></div>
+    <div class="check-content">
+      <h4>README.md is ready to upload</h4>
+      <p>Adds a professional description to your GitHub repository page.</p>
+    </div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"></div>
+    <div class="check-content">
+      <h4>GitHub account created and logged in</h4>
+      <p>Sign up free at github.com. No payment required.</p>
+    </div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"></div>
+    <div class="check-content">
+      <h4>Repository created and set to Public</h4>
+      <p>GitHub Pages only works on Public repositories on the free plan.</p>
+    </div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"></div>
+    <div class="check-content">
+      <h4>Files uploaded and committed</h4>
+      <p>After dragging files in, scroll down and click <code>Commit changes</code> — this is the save button.</p>
+    </div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"></div>
+    <div class="check-content">
+      <h4>GitHub Pages enabled in Settings</h4>
+      <p>Settings → Pages → Branch: main → Save. Then wait 1–2 minutes.</p>
+    </div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"></div>
+    <div class="check-content">
+      <h4>Tested the live URL in browser</h4>
+      <p>Open the live link and click through all 3 pages to confirm everything works.</p>
+    </div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"></div>
+    <div class="check-content">
+      <h4>Sent submission email to akoininfo@gmail.com</h4>
+      <p>Include the live GitHub Pages URL and optionally attach the 3 HTML files.</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="footer-note">AKOIN Digital Risk Academy & Advisory · akoininfo@gmail.com · © 2025</div>
+
+<script>
+function toggle(el) {
+  el.classList.toggle('done');
+}
+</script>
+</body>
+</html>
